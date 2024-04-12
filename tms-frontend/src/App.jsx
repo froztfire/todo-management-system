@@ -19,6 +19,11 @@ function App() {
           <Route path="/add-todo" element={<TodoComponent />}></Route>
           {/* // http://localhost:3000/edit-todo/1 */}
           <Route path="/edit-todo/:id" element={<TodoComponent />}></Route>
+          {/* // http://localhost:3000/remove-todo/1 */}
+          <Route
+            path="/remove-todo/:id"
+            element={<ListTodoComponent />}
+          ></Route>
         </Routes>
       </BrowserRouter>
       <FooterComponents />

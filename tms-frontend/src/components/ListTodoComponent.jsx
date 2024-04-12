@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { listTodo } from "../service/TodoService";
+import { deleteTodo, listTodo } from "../service/TodoService";
 import { useNavigate } from "react-router-dom";
 
 const ListTodoComponent = () => {
@@ -24,6 +24,10 @@ const ListTodoComponent = () => {
   function updateTodo(id) {
     navigator(`/edit-todo/${id}`);
     console.log(id);
+  }
+
+  function removeTodo(id) {
+    navigator(`/remove-todo/${id}`);
   }
 
   return (
@@ -67,6 +71,9 @@ const ListTodoComponent = () => {
                   type="button"
                   className="btn btn-danger"
                   style={{ marginLeft: "10px" }}
+                  onClick={() => {
+                    deleteTodo(todo.id);
+                  }}
                 >
                   Delete
                 </button>
