@@ -1,16 +1,29 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { createTodo } from "../service/TodoService";
+import { useNavigate } from "react-router-dom";
 
 const TodoComponent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [complete, setComplete] = useState(false);
 
+  const navigator = useNavigate();
+
   function saveTodo(e) {
     e.preventDefault();
 
     const todo = { title, description, complete };
     console.log(todo);
+
+    createTodo(todo)
+      .then((response) => {
+        console.log(response.data);
+        navigator("/todos");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
