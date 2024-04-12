@@ -1,29 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { listTodo } from "../service/TodoService";
 
 const ListTodoComponent = () => {
-  const dummyData = [
-    {
-      id: 1,
-      title: "Learn Core Java",
-      description: "Learn Core Java with Examples",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Learn Spring Boot",
-      description: "Learn Spring Boot with Examples",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Learn React",
-      description: "Learn React with Examples",
-      completed: false,
-    },
-  ];
-
-  const [todos, setTodos] = useState(dummyData);
+  const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    listTodo()
+      .then((response) => {
+        setTodos(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
 
   return (
     <div className="container">
@@ -38,7 +27,7 @@ const ListTodoComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {dummyData.map((todo) => (
+          {todos.map((todo) => (
             <tr key={todo.id}>
               <td>{todo.id}</td>
               <td>{todo.title}</td>
