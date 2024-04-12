@@ -4,28 +4,23 @@ import React, { useState } from "react";
 const TodoComponent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  function handleTitle(e) {
-    setTitle(e.target.value);
-  }
-
-  function handleDescription(e) {
-    setDescription(e.target.value);
-  }
+  const [complete, setComplete] = useState(false);
 
   function saveTodo(e) {
     e.preventDefault();
 
-    const todo = { title, description };
+    const todo = { title, description, complete };
     console.log(todo);
   }
 
   return (
     <div className="container">
+      <br />
+      <br />
       <div className="row">
-        <div className="card">
+        <div className="card col-md-6 offset-md-3 offset-md-3">
           <h2 className="text-center">Add Todo</h2>
-          <div className="card-body mb">
+          <div className="card-body">
             <form>
               <div className="form-group mb-2">
                 <label className="form-label">Title:</label>
@@ -35,9 +30,12 @@ const TodoComponent = () => {
                   name="title"
                   value={title}
                   className="form-control"
-                  onChange={handleTitle}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
                 ></input>
               </div>
+
               <div className="form-group mb-2">
                 <label className="form-label">Description:</label>
                 <input
@@ -46,8 +44,24 @@ const TodoComponent = () => {
                   name="description"
                   value={description}
                   className="form-control"
-                  onChange={handleDescription}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
                 ></input>
+              </div>
+
+              <div className="form-group mb-2">
+                <label className="form-label">Completed:</label>
+                <select
+                  className="form-control"
+                  value={complete}
+                  onChange={(e) => {
+                    setComplete(e.target.value);
+                  }}
+                >
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
               </div>
               <button
                 type="button"
