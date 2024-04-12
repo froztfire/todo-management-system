@@ -10,3 +10,11 @@ export const listTodo = () => {
 export const createTodo = (todo) => {
   return axios.post(BASE_URI_API, todo);
 };
+
+export const getTodo = (todoId) => {
+  return axios.get(BASE_URI_API + "/" + todoId);
+};
+
+export const updateTodo = (todoId, todo) => {
+  return axios.put(BASE_URI_API + "/" + todoId, todo);
+};

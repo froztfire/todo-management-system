@@ -1,31 +1,56 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { createTodo } from "../service/TodoService";
+import React, { useEffect, useState } from "react";
+import { createTodo, getTodo, updateTodo } from "../service/TodoService";
 import { useNavigate, useParams } from "react-router-dom";
 
 const TodoComponent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [complete, setComplete] = useState(false);
+  const [completed, setComplete] = useState(false);
 
   const navigator = useNavigate();
 
   const { id } = useParams();
 
+  useEffect(() => {
+    if (id) {
+      getTodo(id)
+        .then((response) => {
+          setTitle(response.data.title);
+          setDescription(response.data.description);
+          setComplete(response.data.completed);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
+
   function saveOrUpdateTodo(e) {
     e.preventDefault();
 
-    const todo = { title, description, complete };
+    const todo = { title, description, completed };
     console.log(todo);
 
-    createTodo(todo)
-      .then((response) => {
-        console.log(response.data);
-        navigator("/todos");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (id) {
+      updateTodo(id, todo)
+        .then((response) => {
+          console.log(response.data);
+          navigator("/todos");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      createTodo(todo)
+        .then((response) => {
+          console.log(response.data);
+          navigator("/todos");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
 
   function pageTitle() {
@@ -77,13 +102,13 @@ const TodoComponent = () => {
                 <label className="form-label">Completed:</label>
                 <select
                   className="form-control"
-                  value={complete}
+                  value={completed}
                   onChange={(e) => {
                     setComplete(e.target.value);
                   }}
                 >
-                  <option value="false">No</option>
-                  <option value="true">Yes</option>
+                  <option value="false">NO</option>
+                  <option value="true">YES</option>
                 </select>
               </div>
               <button

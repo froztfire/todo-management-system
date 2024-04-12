@@ -63,7 +63,11 @@ const ListTodoComponent = () => {
                 >
                   Update
                 </button>
-                <button type="button" className="btn btn-danger">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  style={{ marginLeft: "10px" }}
+                >
                   Delete
                 </button>
               </td>
