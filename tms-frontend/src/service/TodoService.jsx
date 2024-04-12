@@ -22,3 +22,11 @@ export const updateTodo = (todoId, todo) => {
 export const deleteTodo = (todoId) => {
   return axios.delete(BASE_URI_API + "/" + todoId);
 };
+
+export const completeTodo = (todoId) => {
+  return axios.patch(BASE_URI_API + "/" + todoId + "/complete");
+};
+
+export const inCompleteTodo = (todoId) => {
+  return axios.patch(BASE_URI_API + "/" + todoId + "/incomplete");
+};

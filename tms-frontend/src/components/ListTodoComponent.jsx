@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { deleteTodo, listTodo } from "../service/TodoService";
+import {
+  completeTodo,
+  deleteTodo,
+  inCompleteTodo,
+  listTodo,
+} from "../service/TodoService";
 import { useNavigate } from "react-router-dom";
 
 const ListTodoComponent = () => {
@@ -26,8 +31,24 @@ const ListTodoComponent = () => {
     console.log(id);
   }
 
-  function removeTodo(id) {
-    navigator(`/remove-todo/${id}`);
+  function markCompleteTodo(id) {
+    completeTodo(id)
+      .then((response) => {
+        listTodo();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  function markInCompleteTodo(id) {
+    inCompleteTodo(id)
+      .then((response) => {
+        listTodo();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -76,6 +97,26 @@ const ListTodoComponent = () => {
                   }}
                 >
                   Delete
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  style={{ marginLeft: "10px" }}
+                  onClick={() => {
+                    markCompleteTodo(todo.id);
+                  }}
+                >
+                  Complete
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-warning"
+                  style={{ marginLeft: "10px" }}
+                  onClick={() => {
+                    markInCompleteTodo(todo.id);
+                  }}
+                >
+                  InComplete
                 </button>
               </td>
             </tr>
