@@ -3,6 +3,7 @@ import "./App.css";
 import FooterComponents from "./components/FooterComponents";
 import HeaderComponent from "./components/HeaderComponent";
 import ListTodoComponent from "./components/ListTodoComponent";
+import TodoComponent from "./components/TodoComponent";
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
           <Route path="/" element={<ListTodoComponent />}></Route>
           {/* // http://localhost:3000/todos */}
           <Route path="/todos" element={<ListTodoComponent />}></Route>
+          {/* // http://localhost:3000/add-todo */}
+          <Route path="/add-todo" element={<TodoComponent />}></Route>
         </Routes>
       </BrowserRouter>
       <FooterComponents />
