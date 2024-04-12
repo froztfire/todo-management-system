@@ -21,6 +21,11 @@ const ListTodoComponent = () => {
     navigator("/add-todo");
   }
 
+  function updateTodo(id) {
+    navigator(`/edit-todo/${id}`);
+    console.log(id);
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Todos</h2>
@@ -38,6 +43,7 @@ const ListTodoComponent = () => {
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +53,20 @@ const ListTodoComponent = () => {
               <td>{todo.title}</td>
               <td>{todo.description}</td>
               <td>{todo.completed ? "YES" : "NO"}</td>
+              <td>
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  onClick={() => {
+                    updateTodo(todo.id);
+                  }}
+                >
+                  Update
+                </button>
+                <button type="button" className="btn btn-danger">
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
